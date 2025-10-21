@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #1e293b 50%, #0f172a 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efectos de fondo */
+        .bg-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bg-effect-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            top: -300px;
+            right: -300px;
+            animation: float 20s infinite linear;
+        }
+
+        .bg-effect-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            bottom: -200px;
+            left: -200px;
+            animation: float 15s infinite linear reverse;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translateX(0px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(0px) rotate(-360deg); }
+        }
+
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .profile-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+            border: 4px solid var(--glass-border);
+        }
+
+        .welcome-message {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .username {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: white;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 2px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(239, 68, 68, 0.4);
+        }
+
+        footer {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 30px 25px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 25px 20px;
+            }
+            
+            .action-buttons {
+                gap: 12px;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+            }
+        }
+
+        /* Animaciones */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* Badge de estado */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efectos de fondo -->
+    <div class="bg-effects">
+        <div class="bg-effect-1"></div>
+        <div class="bg-effect-2"></div>
+    </div>
+
+    <header>
+        <h1>Mi Perfil</h1>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-card fade-in">
+            <!-- Avatar del usuario -->
+            <div class="avatar">
+                {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+            </div>
+
+            <!-- Mensaje de bienvenida -->
+            <h2 class="welcome-message fade-in delay-1">
+                ¡Bienvenido de vuelta!
+            </h2>
+            <p class="username fade-in delay-1">
+                @{{ user.username }}
+            </p>
+
+            <!-- Badge de estado -->
+            <div class="status-badge fade-in delay-1">
+                <div class="status-dot"></div>
+                Activo ahora
+            </div>
+
+            <!-- Información del usuario -->
+            <div class="user-info fade-in delay-2">
+                <div class="info-item">
+                    <span class="info-label">Nombre completo:</span>
+                    <span class="info-value">{{ user.first_name }} {{ user.last_name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Correo electrónico:</span>
+                    <span class="info-value">{{ user.email }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Miembro desde:</span>
+                    <span class="info-value">{{ user.date_joined|date:"M Y" }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Último acceso:</span>
+                    <span class="info-value">{{ user.last_login|date:"d M Y H:i" }}</span>
+                </div>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="stats-grid fade-in delay-3">
+                <div class="stat-card">
+                    <span class="stat-number" id="modules-completed">0</span>
+                    <span class="stat-label">Módulos Completados</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="progress-percent">0%</span>
+                    <span class="stat-label">Progreso Total</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="current-streak">0</span>
+                    <span class="stat-label">Días Consecutivos</span>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="action-buttons fade-in delay-4">
+                <a href="{% url 'modulos' %}" class="btn btn-primary">
+                    <span>📚</span>
+                    Explorar Módulos
+                </a>
+                
+                <a href="#" class="btn btn-secondary">
+                    <span>⚙️</span>
+                    Configuración
+                </a>
+
+                <form action="{% url 'logout' %}" method="post" style="width: 100%;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" style="width: 100%;">
+                        <span>🚪</span>
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Plataforma de Capacitación Digital - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de contadores para las estadísticas
+            const counters = [
+                { element: document.getElementById('modules-completed'), target: 3, suffix: '' },
+                { element: document.getElementById('progress-percent'), target: 45, suffix: '%' },
+                { element: document.getElementById('current-streak'), target: 7, suffix: '' }
+            ];
+
+            counters.forEach(counter => {
+                let current = 0;
+                const increment = counter.target / 30;
+                
+                const updateCounter = () => {
+                    if (current < counter.target) {
+                        current += increment;
+                        counter.element.textContent = Math.ceil(current) + counter.suffix;
+                        setTimeout(updateCounter, 50);
+                    } else {
+                        counter.element.textContent = counter.target + counter.suffix;
+                    }
+                };
+                
+                // Iniciar cuando el elemento es visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                observer.observe(counter.element);
+            });
+
+            // Efecto de brillo en el avatar
+            const avatar = document.querySelector('.avatar');
+            setInterval(() => {
+                avatar.style.filter = 'brightness(1.1) drop-shadow(0 0 20px rgba(59, 130, 246, 0.5))';
+                setTimeout(() => {
+                    avatar.style.filter = 'brightness(1) drop-shadow(0 0 0 rgba(59, 130, 246, 0))';
+                }, 1000);
+            }, 5000);
+
+            // Mostrar fecha de último acceso en tiempo real
+            const lastLoginElement = document.querySelector('.info-item:nth-child(4) .info-value');
+            const originalDate = lastLoginElement.textContent;
+            
+            // Función para formatear fecha relativa
+            function formatRelativeTime(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+                
+               if (diffMins < 1) return 'Hace un momento';
+               if (diffMins < 60) return `Hace ${diffMins} minuto${diffMins > 1 ? 's' : ''}`;
+               if (diffHours < 24) return `Hace ${diffHours} hora${diffHours > 1 ? 's' : ''}`;
+               if (diffDays < 7) return `Hace ${diffDays} día${diffDays > 1 ? 's' : ''}`;
+
+                
+                return originalDate;
+            }
+            
+            // Actualizar cada minuto
+            setInterval(() => {
+                lastLoginElement.textContent = formatRelativeTime(originalDate);
+            }, 60000);
+            
+            // Inicializar
+            lastLoginElement.textContent = formatRelativeTime(originalDate);
+        });
+    </script>
+</body>
+</html>

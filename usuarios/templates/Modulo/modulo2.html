@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Manejo de Sistemas Operativos y Archivos</title>
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #4a76d0;
+            --accent-hover: #5a86e0;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --os-color: #ff5722;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1, h2, h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid var(--os-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--os-color);
+            margin-top: 30px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+        
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #3d3d3d;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #5cb85c;
+        }
+        
+        .btn-os {
+            background-color: var(--os-color);
+        }
+        
+        .btn-os:hover {
+            background-color: #ff7043;
+        }
+        
+        .section {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        
+        .options {
+            margin-top: 10px;
+        }
+        
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #3a3a3a;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #4a4a4a;
+        }
+        
+        .option.selected {
+            background-color: var(--accent);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .result {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: var(--success);
+        }
+        
+        .warning {
+            color: var(--warning);
+        }
+        
+        .danger {
+            color: var(--danger);
+        }
+        
+        .os-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .os-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .os-list li:before {
+            content: "•";
+            color: var(--os-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: var(--text-secondary);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .tip-box {
+            background-color: #311b92;
+            border-left: 4px solid var(--os-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .file-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .file-type {
+            background-color: #37474f;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .file-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .windows-feature, .mac-feature, .linux-feature {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .windows-feature {
+            background-color: #0c5bb9;
+            border-left: 4px solid #0078d7;
+        }
+        
+        .mac-feature {
+            background-color: #333333;
+            border-left: 4px solid #ffffff;
+        }
+        
+        .linux-feature {
+            background-color: #3d3d3d;
+            border-left: 4px solid #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Módulo 2: Manejo de Sistemas Operativos y Archivos</h1>
+        
+        <!-- Prueba de diagnóstico -->
+        <div id="diagnostic-test" class="section">
+            <h2>Prueba de Diagnóstico</h2>
+            <p>Antes de acceder al módulo, completa esta breve prueba para evaluar tus conocimientos actuales sobre sistemas operativos y archivos.</p>
+            
+            <div class="question">
+                <p>1. ¿Qué es un sistema operativo?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Un programa para editar texto</div>
+                    <div class="option" data-correct="true">El software que gestiona el hardware y permite ejecutar otros programas</div>
+                    <div class="option" data-correct="false">Un tipo de archivo comprimido</div>
+                    <div class="option" data-correct="false">Un dispositivo de almacenamiento</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>2. ¿Cuál de estos es un sistema operativo?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Microsoft Word</div>
+                    <div class="option" data-correct="true">Windows</div>
+                    <div class="option" data-correct="false">Google Chrome</div>
+                    <div class="option" data-correct="false">Adobe Photoshop</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>3. ¿Qué es una carpeta o directorio?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Un tipo de archivo de texto</div>
+                    <div class="option" data-correct="true">Un contenedor para organizar archivos</div>
+                    <div class="option" data-correct="false">Un programa del sistema</div>
+                    <div class="option" data-correct="false">Un dispositivo de hardware</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>4. ¿Qué extensión suelen tener los archivos ejecutables en Windows?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">.txt</div>
+                    <div class="option" data-correct="false">.jpg</div>
+                    <div class="option" data-correct="true">.exe</div>
+                    <div class="option" data-correct="false">.doc</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>5. ¿Para qué sirve el "Escritorio" en un sistema operativo?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Para escribir documentos</div>
+                    <div class="option" data-correct="true">Como área principal de trabajo con accesos directos</div>
+                    <div class="option" data-correct="false">Para guardar archivos permanentemente</div>
+                    <div class="option" data-correct="false">Para navegar por internet</div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button id="submit-test" class="btn btn-success">Enviar Respuestas</button>
+                <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+            </div>
+            
+            <div id="test-result" class="result hidden"></div>
+            
+            <div id="module-access" class="hidden">
+                <p id="result-message"></p>
+                <div class="navigation">
+                    <button id="access-module" class="btn btn-os">Acceder al Módulo</button>
+                    <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contenido del módulo (inicialmente oculto) -->
+        <div id="module-content" class="hidden">
+            <div class="section">
+                <h2>¿Qué es un Sistema Operativo?</h2>
+                <p>El sistema operativo (SO) es el software más importante de una computadora. Actúa como intermediario entre el usuario y el hardware, gestionando los recursos del sistema y permitiendo la ejecución de otros programas.</p>
+                
+                <h3>Funciones principales de un SO:</h3>
+                <ul class="os-list">
+                    <li><strong>Gestión de procesos:</strong> Controla qué programas se ejecutan y cuándo</li>
+                    <li><strong>Gestión de memoria:</strong> Administra la memoria RAM</li>
+                    <li><strong>Gestión de archivos:</strong> Organiza y controla el acceso a archivos</li>
+                    <li><strong>Control de dispositivos:</strong> Gestiona periféricos (teclado, mouse, impresora)</li>
+                    <li><strong>Interfaz de usuario:</strong> Permite la interacción con el usuario</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Sistemas Operativos Principales</h2>
+                
+                <div class="windows-feature">
+                    <h3>🪟 Microsoft Windows</h3>
+                    <ul class="os-list">
+                        <li>El más utilizado en computadoras de escritorio</li>
+                        <li>Interfaz gráfica amigable</li>
+                        <li>Compatibilidad con la mayoría del software</li>
+                        <li>Versiones: Windows 10, Windows 11</li>
+                    </ul>
+                </div>
+                
+                <div class="mac-feature">
+                    <h3>🍎 macOS</h3>
+                    <ul class="os-list">
+                        <li>Exclusivo para computadoras Apple</li>
+                        <li>Conocido por su estabilidad y diseño</li>
+                        <li>Integración con otros dispositivos Apple</li>
+                        <li>Interfaz limpia y intuitiva</li>
+                    </ul>
+                </div>
+                
+                <div class="linux-feature">
+                    <h3>🐧 Linux</h3>
+                    <ul class="os-list">
+                        <li>Código abierto y gratuito</li>
+                        <li>Muy estable y seguro</li>
+                        <li>Popular en servidores y desarrollo</li>
+                        <li>Distribuciones: Ubuntu, Fedora, Mint</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Manejo Básico de Archivos</h2>
+                
+                <h3>¿Qué es un archivo?</h3>
+                <p>Un archivo es una colección de datos almacenados con un nombre específico. Puede contener texto, imágenes, programas, etc.</p>
+                
+                <h3>Tipos comunes de archivos:</h3>
+                <div class="file-types">
+                    <div class="file-type">
+                        <div class="file-icon">📄</div>
+                        <strong>.txt, .doc, .pdf</strong>
+                        <p>Documentos de texto</p>
+                    </div>
+                    <div class="file-type">
+                        <div class="file-icon">🖼️</div>
+                        <strong>.jpg, .png, .gif</strong>
+                        <p>Imágenes</p>
+                    </div>
+                    <div class="file-type">
+                        <div class="file-icon">🎵</div>
+                        <strong>.mp3, .wav</strong>
+                        <p>Archivos de audio</p>
+                    </div>
+                    <div class="file-type">
+                        <div class="file-icon">🎬</div>
+                        <strong>.mp4, .avi</strong>
+                        <p>Archivos de video</p>
+                    </div>
+                    <div class="file-type">
+                        <div class="file-icon">⚙️</div>
+                        <strong>.exe, .msi</strong>
+                        <p>Archivos ejecutables</p>
+                    </div>
+                    <div class="file-type">
+                        <div class="file-icon">📦</div>
+                        <strong>.zip, .rar</strong>
+                        <p>Archivos comprimidos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Organización de Archivos y Carpetas</h2>
+                
+                <h3>Estructura jerárquica:</h3>
+                <ul class="os-list">
+                    <li><strong>Unidades:</strong> C:\, D:\ (en Windows)</li>
+                    <li><strong>Carpetas/Directorios:</strong> Contenedores para organizar archivos</li>
+                    <li><strong>Subcarpetas:</strong> Carpetas dentro de otras carpetas</li>
+                    <li><strong>Archivos:</strong> Los elementos finales que contienen datos</li>
+                </ul>
+                
+                <div class="tip-box">
+                    <h3>💡 Buenas prácticas de organización</h3>
+                    <ul class="os-list">
+                        <li>Crea carpetas por proyecto o categoría</li>
+                        <li>Usa nombres descriptivos para archivos y carpetas</li>
+                        <li>Mantén tu escritorio organizado</li>
+                        <li>Realiza copias de seguridad regularmente</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Operaciones Básicas con Archivos</h2>
+                
+                <h3>Crear:</h3>
+                <ul class="os-list">
+                    <li><strong>Clic derecho → Nuevo → Carpeta/Archivo</strong></li>
+                    <li>O desde el menú "Archivo" en programas</li>
+                </ul>
+                
+                <h3>Copiar y Mover:</h3>
+                <ul class="os-list">
+                    <li><strong>Copiar:</strong> Ctrl+C → Navegar → Ctrl+V</li>
+                    <li><strong>Mover:</strong> Ctrl+X → Navegar → Ctrl+V</li>
+                    <li><strong>Arrastrar:</strong> Mantener Ctrl para copiar, Shift para mover</li>
+                </ul>
+                
+                <h3>Eliminar:</h3>
+                <ul class="os-list">
+                    <li><strong>Papelera de reciclaje:</strong> Archivos eliminados temporalmente</li>
+                    <li><strong>Shift+Delete:</strong> Eliminación permanente</li>
+                    <li><strong>Vaciar papelera:</strong> Eliminación definitiva</li>
+                </ul>
+                
+                <h3>Buscar:</h3>
+                <ul class="os-list">
+                    <li><strong>Windows:</strong> Presiona la tecla Windows y escribe</li>
+                    <li><strong>Explorador de archivos:</strong> Usa la barra de búsqueda</li>
+                    <li><strong>Mac:</strong> Spotlight (Cmd+Espacio)</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Atajos de Teclado Útiles</h2>
+                
+                <h3>Navegación general:</h3>
+                <ul class="os-list">
+                    <li><strong>Ctrl+C / Cmd+C:</strong> Copiar</li>
+                    <li><strong>Ctrl+V / Cmd+V:</strong> Pegar</li>
+                    <li><strong>Ctrl+X / Cmd+X:</strong> Cortar</li>
+                    <li><strong>Ctrl+Z / Cmd+Z:</strong> Deshacer</li>
+                    <li><strong>Ctrl+A / Cmd+A:</strong> Seleccionar todo</li>
+                </ul>
+                
+                <h3>Gestor de archivos:</h3>
+                <ul class="os-list">
+                    <li><strong>Windows+E:</strong> Abrir Explorador de archivos</li>
+                    <li><strong>F2:</strong> Renombrar archivo/carpeta</li>
+                    <li><strong>F5:</strong> Actualizar vista</li>
+                    <li><strong>Ctrl+Shift+N:</strong> Nueva carpeta</li>
+                    <li><strong>Alt+F4:</strong> Cerrar ventana</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Mantenimiento del Sistema</h2>
+                
+                <h3>Tareas importantes:</h3>
+                <ul class="os-list">
+                    <li><strong>Actualizaciones:</strong> Mantener el SO y programas actualizados</li>
+                    <li><strong>Limpieza de disco:</strong> Eliminar archivos temporales</li>
+                    <li><strong>Desfragmentación:</strong> Optimizar el disco duro (HDD)</li>
+                    <li><strong>Copias de seguridad:</strong> Resguardar datos importantes</li>
+                    <li><strong>Antivirus:</strong> Protección contra malware</li>
+                </ul>
+                
+                <div class="tip-box">
+                    <h3>⚠️ Precauciones de seguridad</h3>
+                    <ul class="os-list">
+                        <li>No descargues archivos de fuentes no confiables</li>
+                        <li>Cierra sesión en computadoras compartidas</li>
+                        <li>Usa contraseñas seguras</li>
+                        <li>Realiza escaneos periódicos con antivirus</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar opciones de respuesta
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Deseleccionar otras opciones en la misma pregunta
+                    const siblings = this.parentElement.children;
+                    for (let sibling of siblings) {
+                        sibling.classList.remove('selected');
+                    }
+                    
+                    // Seleccionar la opción clickeada
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Enviar prueba
+            document.getElementById('submit-test').addEventListener('click', function() {
+                let correctAnswers = 0;
+                const questions = document.querySelectorAll('.question');
+                let allAnswered = true;
+                
+                // Verificar que todas las preguntas estén respondidas
+                questions.forEach(question => {
+                    const selectedOption = question.querySelector('.option.selected');
+                    if (!selectedOption) {
+                        allAnswered = false;
+                        question.style.borderColor = 'var(--danger)';
+                    } else {
+                        question.style.borderColor = '';
+                    }
+                });
+                
+                if (!allAnswered) {
+                    alert('Por favor, responde todas las preguntas antes de enviar.');
+                    return;
+                }
+                
+                // Calcular puntaje
+                questions.forEach(question => {
+                    const selectedOption = question.querySelector('.option.selected');
+                    if (selectedOption && selectedOption.getAttribute('data-correct') === 'true') {
+                        correctAnswers++;
+                        selectedOption.style.backgroundColor = 'var(--success)';
+                    } else if (selectedOption) {
+                        selectedOption.style.backgroundColor = 'var(--danger)';
+                    }
+                });
+                
+                const totalQuestions = questions.length;
+                const score = (correctAnswers / totalQuestions) * 100;
+                
+                // Mostrar resultado
+                const resultDiv = document.getElementById('test-result');
+                const messageDiv = document.getElementById('result-message');
+                const moduleAccess = document.getElementById('module-access');
+                
+                resultDiv.classList.remove('hidden');
+                moduleAccess.classList.remove('hidden');
+                
+                if (score >= 80) {
+                    resultDiv.innerHTML = '¡Excelente! Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result success';
+                    messageDiv.innerHTML = 'Tienes buenos conocimientos de sistemas operativos. Puedes acceder al módulo para profundizar.';
+                } else if (score >= 60) {
+                    resultDiv.innerHTML = 'Buen trabajo. Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result warning';
+                    messageDiv.innerHTML = 'Tienes algunos conocimientos, pero este módulo te ayudará a reforzarlos.';
+                } else {
+                    resultDiv.innerHTML = 'Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result danger';
+                    messageDiv.innerHTML = 'Este módulo te proporcionará los conocimientos básicos que necesitas para manejar sistemas operativos y archivos.';
+                }
+                
+                // Deshabilitar el botón de enviar
+                this.disabled = true;
+            });
+            
+            // Acceder al módulo
+            document.getElementById('access-module').addEventListener('click', function() {
+                document.getElementById('diagnostic-test').classList.add('hidden');
+                document.getElementById('module-content').classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

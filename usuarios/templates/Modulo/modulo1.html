@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conocimientos Básicos de Hardware y Software</title>
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #4a76d0;
+            --accent-hover: #5a86e0;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1, h2, h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--accent);
+            margin-top: 30px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+        
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #3d3d3d;
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+        }
+        
+        .btn-success:hover {
+            background-color: #5cb85c;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+        
+        .section {
+            background-color: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        
+        .options {
+            margin-top: 10px;
+        }
+        
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background-color: #3a3a3a;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #4a4a4a;
+        }
+        
+        .option.selected {
+            background-color: var(--accent);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .result {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .success {
+            color: var(--success);
+        }
+        
+        .warning {
+            color: var(--warning);
+        }
+        
+        .danger {
+            color: var(--danger);
+        }
+        
+        .hardware-list, .software-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        
+        .hardware-list li, .software-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .hardware-list li:before, .software-list li:before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: var(--text-secondary);
+        }
+        
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conocimientos Básicos de Hardware y Software</h1>
+        
+        <!-- Prueba de diagnóstico -->
+        <div id="diagnostic-test" class="section">
+            <h2>Prueba de Diagnóstico</h2>
+            <p>Antes de acceder al módulo, completa esta breve prueba para evaluar tus conocimientos actuales sobre hardware y software.</p>
+            
+            <div class="question">
+                <p>1. ¿Qué componente de hardware se considera el "cerebro" de la computadora?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Memoria RAM</div>
+                    <div class="option" data-correct="true">Procesador (CPU)</div>
+                    <div class="option" data-correct="false">Disco duro</div>
+                    <div class="option" data-correct="false">Tarjeta gráfica</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>2. ¿Cuál de estos es un sistema operativo?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Microsoft Word</div>
+                    <div class="option" data-correct="true">Windows</div>
+                    <div class="option" data-correct="false">Google Chrome</div>
+                    <div class="option" data-correct="false">Adobe Photoshop</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>3. ¿Qué tipo de software permite a los usuarios realizar tareas específicas como procesar texto o navegar por internet?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Sistema operativo</div>
+                    <div class="option" data-correct="false">Software de programación</div>
+                    <div class="option" data-correct="true">Software de aplicación</div>
+                    <div class="option" data-correct="false">Software de utilidad</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>4. ¿Qué componente almacena datos de forma permanente incluso cuando la computadora está apagada?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Memoria RAM</div>
+                    <div class="option" data-correct="false">Procesador</div>
+                    <div class="option" data-correct="true">Disco duro</div>
+                    <div class="option" data-correct="false">Tarjeta madre</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <p>5. ¿Cuál de estas opciones NO es un tipo de software?</p>
+                <div class="options">
+                    <div class="option" data-correct="false">Software de sistema</div>
+                    <div class="option" data-correct="false">Software de aplicación</div>
+                    <div class="option" data-correct="true">Software de hardware</div>
+                    <div class="option" data-correct="false">Software de programación</div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button id="submit-test" class="btn btn-success">Enviar Respuestas</button>
+                <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+            </div>
+            
+            <div id="test-result" class="result hidden"></div>
+            
+            <div id="module-access" class="hidden">
+                <p id="result-message"></p>
+                <div class="navigation">
+                    <button id="access-module" class="btn">Acceder al Módulo de Conocimientos</button>
+                    <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contenido del módulo (inicialmente oculto) -->
+        <div id="module-content" class="hidden">
+            <div class="section">
+                <h2>¿Qué es el Hardware?</h2>
+                <p>El hardware se refiere a todos los componentes físicos y tangibles de una computadora. Son las partes que puedes ver y tocar.</p>
+                
+                <h3>Componentes principales del hardware:</h3>
+                <ul class="hardware-list">
+                    <li><strong>Procesador (CPU):</strong> Es el cerebro de la computadora, ejecuta instrucciones y procesa datos.</li>
+                    <li><strong>Memoria RAM:</strong> Almacena temporalmente datos e instrucciones para un acceso rápido.</li>
+                    <li><strong>Disco duro (HDD/SSD):</strong> Almacena datos de forma permanente.</li>
+                    <li><strong>Tarjeta madre (Motherboard):</strong> Conecta todos los componentes del hardware.</li>
+                    <li><strong>Tarjeta gráfica (GPU):</strong> Procesa y muestra imágenes en el monitor.</li>
+                    <li><strong>Fuente de poder:</strong> Proporciona energía eléctrica a todos los componentes.</li>
+                    <li><strong>Periféricos:</strong> Dispositivos de entrada/salida como teclado, mouse, monitor, impresora.</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>¿Qué es el Software?</h2>
+                <p>El software son los programas y aplicaciones que permiten a la computadora realizar tareas específicas. Son instrucciones que le dicen al hardware qué hacer.</p>
+                
+                <h3>Tipos de software:</h3>
+                <ul class="software-list">
+                    <li><strong>Software de sistema:</strong> Controla el hardware y proporciona una plataforma para ejecutar aplicaciones. Ejemplos: Windows, macOS, Linux.</li>
+                    <li><strong>Software de aplicación:</strong> Programas diseñados para tareas específicas del usuario. Ejemplos: Microsoft Office, navegadores web, editores de imagen.</li>
+                    <li><strong>Software de programación:</strong> Herramientas para crear otros programas. Ejemplos: compiladores, editores de código, depuradores.</li>
+                    <li><strong>Software de utilidad:</strong> Programas que realizan tareas de mantenimiento. Ejemplos: antivirus, herramientas de backup, limpiadores de disco.</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Relación entre Hardware y Software</h2>
+                <p>El hardware y el software trabajan juntos para que una computadora funcione:</p>
+                <ul class="hardware-list">
+                    <li>El hardware proporciona la plataforma física para ejecutar el software.</li>
+                    <li>El software da instrucciones al hardware sobre qué tareas realizar.</li>
+                    <li>Sin software, el hardware sería inútil (solo componentes físicos).</li>
+                    <li>Sin hardware, el software no tendría dónde ejecutarse.</li>
+                </ul>
+                <p>Esta relación se puede comparar con el cuerpo humano: el hardware sería el cuerpo y el software sería la mente que le da instrucciones.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Ejemplos prácticos</h2>
+                <h3>Ejemplo de interacción hardware-software:</h3>
+                <p>Cuando escribes en un teclado (hardware):</p>
+                <ol class="hardware-list">
+                    <li>El teclado envía señales eléctricas a la computadora.</li>
+                    <li>El sistema operativo (software) interpreta estas señales.</li>
+                    <li>El procesador (hardware) ejecuta las instrucciones del sistema operativo.</li>
+                    <li>Los caracteres aparecen en el monitor (hardware) gracias al controlador de pantalla (software).</li>
+                </ol>
+            </div>
+            
+            <div class="footer">
+                <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar al Módulo Principal</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar opciones de respuesta
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Deseleccionar otras opciones en la misma pregunta
+                    const siblings = this.parentElement.children;
+                    for (let sibling of siblings) {
+                        sibling.classList.remove('selected');
+                    }
+                    
+                    // Seleccionar la opción clickeada
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Enviar prueba
+            document.getElementById('submit-test').addEventListener('click', function() {
+                let correctAnswers = 0;
+                const questions = document.querySelectorAll('.question');
+                let allAnswered = true;
+                
+                // Verificar que todas las preguntas estén respondidas
+                questions.forEach(question => {
+                    const selectedOption = question.querySelector('.option.selected');
+                    if (!selectedOption) {
+                        allAnswered = false;
+                        question.style.borderColor = 'var(--danger)';
+                    } else {
+                        question.style.borderColor = '';
+                    }
+                });
+                
+                if (!allAnswered) {
+                    alert('Por favor, responde todas las preguntas antes de enviar.');
+                    return;
+                }
+                
+                // Calcular puntaje
+                questions.forEach(question => {
+                    const selectedOption = question.querySelector('.option.selected');
+                    if (selectedOption && selectedOption.getAttribute('data-correct') === 'true') {
+                        correctAnswers++;
+                        selectedOption.style.backgroundColor = 'var(--success)';
+                    } else if (selectedOption) {
+                        selectedOption.style.backgroundColor = 'var(--danger)';
+                    }
+                });
+                
+                const totalQuestions = questions.length;
+                const score = (correctAnswers / totalQuestions) * 100;
+                
+                // Mostrar resultado - VERSIÓN CORREGIDA
+                const resultDiv = document.getElementById('test-result');
+                const messageDiv = document.getElementById('result-message');
+                const moduleAccess = document.getElementById('module-access');
+                
+                resultDiv.classList.remove('hidden');
+                moduleAccess.classList.remove('hidden');
+                
+                // USANDO CONCATENACIÓN DE STRINGS EN LUGAR DE TEMPLATE LITERALS
+                if (score >= 80) {
+                    resultDiv.innerHTML = '¡Excelente! Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result success';
+                    messageDiv.innerHTML = 'Tienes buenos conocimientos básicos. Puedes acceder al módulo para profundizar.';
+                } else if (score >= 60) {
+                    resultDiv.innerHTML = 'Buen trabajo. Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result warning';
+                    messageDiv.innerHTML = 'Tienes algunos conocimientos, pero este módulo te ayudará a reforzarlos.';
+                } else {
+                    resultDiv.innerHTML = 'Obtuviste ' + correctAnswers + ' de ' + totalQuestions + ' respuestas correctas (' + score.toFixed(0) + '%).';
+                    resultDiv.className = 'result danger';
+                    messageDiv.innerHTML = 'Este módulo te proporcionará los conocimientos básicos que necesitas.';
+                }
+                
+                // Deshabilitar el botón de enviar
+                this.disabled = true;
+            });
+            
+            // Acceder al módulo
+            document.getElementById('access-module').addEventListener('click', function() {
+                document.getElementById('diagnostic-test').classList.add('hidden');
+                document.getElementById('module-content').classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

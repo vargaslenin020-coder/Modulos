@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicación Digital</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background-color: #0d5bb9;
+        }
+        
+        .btn-secondary {
+            background-color: #5f6368;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4a4d52;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #2d8c47;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .options label {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .options label:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .module-content {
+            margin-top: 30px;
+        }
+        
+        .topic {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+        
+        .topic h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .success {
+            background-color: rgba(52, 168, 83, 0.2);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .error {
+            background-color: rgba(234, 67, 53, 0.2);
+            border: 1px solid #ea4335;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .module-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Comunicación Digital</h1>
+            <p class="subtitle">Módulo de conocimientos</p>
+        </header>
+        
+        <!-- Prueba de diagnóstico -->
+        <div id="diagnostic-test" class="card">
+            <h2>Prueba de diagnóstico</h2>
+            <p>Antes de acceder al módulo de Comunicación Digital, responde las siguientes preguntas para evaluar tu nivel de conocimiento actual.</p>
+            
+            <form id="diagnostic-form">
+                <div class="question">
+                    <h3>1. ¿Qué es la comunicación digital?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q1" value="a"> 
+                            a) Comunicación que utiliza medios digitales como internet, redes sociales, etc.
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="b"> 
+                            b) Comunicación que solo se realiza por teléfono
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="c"> 
+                            c) Comunicación escrita tradicional
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. ¿Cuál de los siguientes es un ejemplo de comunicación digital asincrónica?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q2" value="a"> 
+                            a) Videollamada
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="b"> 
+                            b) Chat en tiempo real
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="c"> 
+                            c) Correo electrónico
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. ¿Qué ventaja ofrece la comunicación digital sobre la comunicación tradicional?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q3" value="a"> 
+                            a) Mayor inmediatez y alcance global
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="b"> 
+                            b) Mayor costo
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="c"> 
+                            c) Menor interacción
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. ¿Qué es la netiqueta?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q4" value="a"> 
+                            a) Una red social
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="b"> 
+                            b) Un protocolo de internet
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="c"> 
+                            c) Normas de comportamiento en entornos digitales
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. ¿Cuál de estas plataformas NO es principalmente para comunicación digital?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q5" value="a"> 
+                            a) WhatsApp
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="b"> 
+                            b) Correo postal
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="c"> 
+                            c) Zoom
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px;">
+                    <button type="button" id="submit-test" class="btn">Enviar respuestas</button>
+                    <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+                    <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar a Módulos</a>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Resultado de la prueba -->
+        <div id="test-result" class="card hidden">
+            <h2>Resultado de la prueba de diagnóstico</h2>
+            <div id="result-message" class="result"></div>
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+            <p id="score-text"></p>
+            <div style="text-align: center; margin-top: 25px;">
+                <button id="continue-module" class="btn btn-success">Continuar al módulo</button>
+                <button id="retry-test" class="btn btn-secondary">Volver a intentar</button>
+                <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+                <a href="{% url 'modulos' %}" class="btn">Regresar a Módulos</a>
+            </div>
+        </div>
+        
+        <!-- Contenido del módulo -->
+        <div id="module-content" class="hidden">
+            <div class="card">
+                <h2>Módulo: Comunicación Digital</h2>
+                <p>Explora los conceptos fundamentales de la comunicación en entornos digitales.</p>
+                
+                <div class="module-content">
+                    <div class="topic">
+                        <h3>1. Introducción a la comunicación digital</h3>
+                        <p>La comunicación digital se refiere al intercambio de información a través de medios digitales como internet, redes sociales, aplicaciones de mensajería, etc. A diferencia de la comunicación tradicional, permite una interacción más rápida y con mayor alcance.</p>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>2. Tipos de comunicación digital</h3>
+                        <p>Existen dos tipos principales de comunicación digital:</p>
+                        <ul>
+                            <li><strong>Comunicación sincrónica:</strong> Ocurre en tiempo real (videollamadas, chats en vivo)</li>
+                            <li><strong>Comunicación asincrónica:</strong> No requiere que los participantes estén conectados al mismo tiempo (correo electrónico, foros)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>3. Herramientas de comunicación digital</h3>
+                        <p>Algunas de las herramientas más utilizadas incluyen:</p>
+                        <ul>
+                            <li>Correo electrónico</li>
+                            <li>Mensajería instantánea (WhatsApp, Telegram)</li>
+                            <li>Videoconferencias (Zoom, Teams, Meet)</li>
+                            <li>Redes sociales (Facebook, Twitter, LinkedIn)</li>
+                            <li>Plataformas colaborativas (Slack, Trello)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>4. Netiqueta: Reglas de comportamiento en línea</h3>
+                        <p>La netiqueta se refiere al conjunto de normas de comportamiento que facilitan la convivencia y comunicación en entornos digitales. Algunas reglas básicas incluyen:</p>
+                        <ul>
+                            <li>Tratar a los demás con respeto</li>
+                            <li>No escribir en mayúsculas (equivale a gritar)</li>
+                            <li>Ser claro y conciso en los mensajes</li>
+                            <li>Respetar la privacidad de los demás</li>
+                            <li>Citar adecuadamente las fuentes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>5. Ventajas y desventajas de la comunicación digital</h3>
+                        <p><strong>Ventajas:</strong></p>
+                        <ul>
+                            <li>Rapidez e inmediatez</li>
+                            <li>Alcance global</li>
+                            <li>Reducción de costos</li>
+                            <li>Posibilidad de almacenar y recuperar información</li>
+                        </ul>
+                        <p><strong>Desventajas:</strong></p>
+                        <ul>
+                            <li>Posibilidad de malentendidos por falta de lenguaje no verbal</li>
+                            <li>Sobrecarga de información</li>
+                            <li>Problemas de seguridad y privacidad</li>
+                            <li>Brecha digital para quienes no tienen acceso a la tecnología</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module-nav">
+                    <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+                    <a href="{% url 'modulos' %}" class="btn">Regresar a Módulos</a>
+                    <button id="back-to-test" class="btn btn-secondary">Volver a la prueba</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Módulo de Comunicación Digital &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagnosticTest = document.getElementById('diagnostic-test');
+            const testResult = document.getElementById('test-result');
+            const moduleContent = document.getElementById('module-content');
+            const submitTestBtn = document.getElementById('submit-test');
+            const continueModuleBtn = document.getElementById('continue-module');
+            const retryTestBtn = document.getElementById('retry-test');
+            const backToTestBtn = document.getElementById('back-to-test');
+            const resultMessage = document.getElementById('result-message');
+            const progressBar = document.getElementById('progress');
+            const scoreText = document.getElementById('score-text');
+            
+            // Respuestas correctas
+            const correctAnswers = {
+                q1: 'a',
+                q2: 'c',
+                q3: 'a',
+                q4: 'c',
+                q5: 'b'
+            };
+            
+            // Calcular resultado de la prueba
+            submitTestBtn.addEventListener('click', function() {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+                
+                // Verificar respuestas
+                for (const question in correctAnswers) {
+    const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+    if (selectedOption && selectedOption.value === correctAnswers[question]) {
+        score++;
+    }
+}
+
+// Mostrar resultado
+const percentage = (score / totalQuestions) * 100;
+progressBar.style.width = `${percentage}%`;
+scoreText.textContent = `Has obtenido ${score} de ${totalQuestions} respuestas correctas (${percentage}%)`;
+
+                
+                if (percentage >= 60) {
+                    resultMessage.innerHTML = '<h3>¡Felicidades!</h3><p>Has aprobado la prueba de diagnóstico. Puedes continuar con el módulo.</p>';
+                    resultMessage.className = 'result success';
+                } else {
+                    resultMessage.innerHTML = '<h3>Necesitas repasar</h3><p>Te recomendamos estudiar los conceptos básicos antes de continuar con el módulo.</p>';
+                    resultMessage.className = 'result error';
+                }
+                
+                diagnosticTest.classList.add('hidden');
+                testResult.classList.remove('hidden');
+            });
+            
+            // Continuar al módulo
+            continueModuleBtn.addEventListener('click', function() {
+                testResult.classList.add('hidden');
+                moduleContent.classList.remove('hidden');
+            });
+            
+            // Reintentar la prueba
+            retryTestBtn.addEventListener('click', function() {
+                // Limpiar formulario
+                document.getElementById('diagnostic-form').reset();
+                
+                testResult.classList.add('hidden');
+                diagnosticTest.classList.remove('hidden');
+            });
+
+            // Volver a la prueba desde el módulo
+            backToTestBtn.addEventListener('click', function() {
+                moduleContent.classList.add('hidden');
+                diagnosticTest.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

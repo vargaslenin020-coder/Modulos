@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciudadanía Digital</title>
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --secondary-color: #3498db;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background-color: #219653;
+        }
+        
+        .btn-secondary {
+            background-color: #5f6368;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4a4d52;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #2980b9;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .options label {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .options label:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .module-content {
+            margin-top: 30px;
+        }
+        
+        .topic {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(39, 174, 96, 0.05);
+        }
+        
+        .topic h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .result {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .success {
+            background-color: rgba(52, 152, 219, 0.2);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .error {
+            background-color: rgba(234, 67, 53, 0.2);
+            border: 1px solid #ea4335;
+        }
+        
+        .citizenship-icons {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .citizenship-icon {
+            text-align: center;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            width: 150px;
+        }
+        
+        .citizenship-icon i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .reflection {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .reflection h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .principle {
+            background-color: rgba(39, 174, 96, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .principle h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .module-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .learning-objectives {
+            background-color: rgba(39, 174, 96, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .learning-objectives h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background-color: rgba(39, 174, 96, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .case-study {
+            background-color: rgba(155, 89, 182, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .case-study h4 {
+            color: #9b59b6;
+            margin-bottom: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ciudadanía Digital</h1>
+            <p class="subtitle">Módulo de conocimientos - Comportamiento ético y responsable en el entorno digital</p>
+        </header>
+        
+        <!-- Prueba de diagnóstico -->
+        <div id="diagnostic-test" class="card">
+            <h2>Prueba de diagnóstico</h2>
+            <p>Antes de acceder al módulo de Ciudadanía Digital, responde las siguientes preguntas para evaluar tu nivel de conocimiento actual.</p>
+            
+            <form id="diagnostic-form">
+                <div class="question">
+                    <h3>1. ¿Qué es la ciudadanía digital?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q1" value="a"> 
+                            a) Tener muchos seguidores en redes sociales
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="b"> 
+                            b) Las normas de comportamiento apropiado y responsable en el uso de la tecnología
+                        </label>
+                        <label>
+                            <input type="radio" name="q1" value="c"> 
+                            c) Saber programar y usar computadoras
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>2. ¿Qué significa "netiqueta"?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q2" value="a"> 
+                            a) Una red social nueva
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="b"> 
+                            b) Las reglas de etiqueta en internet
+                        </label>
+                        <label>
+                            <input type="radio" name="q2" value="c"> 
+                            c) Un tipo de conexión a internet
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>3. ¿Qué es el ciberacoso?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q3" value="a"> 
+                            a) Usar internet por muchas horas
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="b"> 
+                            b) El acoso que se produce a través de medios digitales
+                        </label>
+                        <label>
+                            <input type="radio" name="q3" value="c"> 
+                            c) Tener muchos dispositivos digitales
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>4. ¿Qué información personal no deberías compartir públicamente en internet?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q4" value="a"> 
+                            a) Dirección, teléfono y documentos de identidad
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="b"> 
+                            b) Tu comida favorita
+                        </label>
+                        <label>
+                            <input type="radio" name="q4" value="c"> 
+                            c) Tu película preferida
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <h3>5. ¿Qué es la huella digital?</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q5" value="a"> 
+                            a) Un tipo de scanner
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="b"> 
+                            b) El rastro de información que dejamos al usar internet
+                        </label>
+                        <label>
+                            <input type="radio" name="q5" value="c"> 
+                            c) Una aplicación para tomar huellas dactilares
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="button" id="submit-test" class="btn">Enviar respuestas</button>
+                <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+                <a href="{% url 'modulos' %}" class="btn btn-secondary">Regresar a Módulos</a>
+            </form>
+        </div>
+        
+        <!-- Resultado de la prueba -->
+        <div id="test-result" class="card hidden">
+            <h2>Resultado de la prueba de diagnóstico</h2>
+            <div id="result-message" class="result"></div>
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+            <p id="score-text"></p>
+            <button id="continue-module" class="btn btn-success">Continuar al módulo</button>
+            <button id="retry-test" class="btn btn-secondary">Volver a intentar</button>
+            <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+            <a href="{% url 'modulos' %}" class="btn">Regresar a Módulos</a>
+        </div>
+        
+        <!-- Contenido del módulo -->
+        <div id="module-content" class="hidden">
+            <div class="card">
+                <h2>Módulo: Ciudadanía Digital</h2>
+                <p>Aprende a navegar por el mundo digital de manera responsable, ética y segura. Desarrolla las competencias necesarias para ser un ciudadano digital ejemplar.</p>
+                
+                <div class="learning-objectives">
+                    <h4>Objetivos de aprendizaje</h4>
+                    <ul>
+                        <li>Comprender el concepto de ciudadanía digital y su importancia</li>
+                        <li>Aplicar las normas de netiqueta en interacciones digitales</li>
+                        <li>Proteger la privacidad e información personal en línea</li>
+                        <li>Identificar y prevenir el ciberacoso</li>
+                        <li>Gestionar responsablemente la huella digital</li>
+                        <li>Desarrollar pensamiento crítico ante la información en línea</li>
+                    </ul>
+                </div>
+                
+                <div class="citizenship-icons">
+                    <div class="citizenship-icon">
+                        <i class="fas fa-users"></i>
+                        <p>Comunidad</p>
+                    </div>
+                    <div class="citizenship-icon">
+                        <i class="fas fa-balance-scale"></i>
+                        <p>Ética</p>
+                    </div>
+                    <div class="citizenship-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Seguridad</p>
+                    </div>
+                </div>
+                
+                <div class="module-content">
+                    <div class="topic">
+                        <h3>1. ¿Qué es la Ciudadanía Digital?</h3>
+                        <p>La <span class="highlight">ciudadanía digital</span> se refiere a las normas de comportamiento apropiado y responsable respecto al uso de la tecnología. Incluye el derecho al acceso digital, la comunicación, la alfabetización digital, el comercio electrónico y la etiqueta en línea.</p>
+                        
+                        <div class="principle">
+                            <h4>Los 9 Elementos de la Ciudadanía Digital</h4>
+                            <ol>
+                                <li>Acceso digital</li>
+                                <li>Comercio digital</li>
+                                <li>Comunicación digital</li>
+                                <li>Alfabetización digital</li>
+                                <li>Etiqueta digital</li>
+                                <li>Ley digital</li>
+                                <li>Derechos y responsabilidades digitales</li>
+                                <li>Salud y bienestar digital</li>
+                                <li>Seguridad digital</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>2. Netiqueta: Reglas de Convivencia Digital</h3>
+                        <p>La <span class="highlight">netiqueta</span> son las reglas de etiqueta en el ciberespacio. Son pautas de comportamiento que hacen que la comunicación digital sea más efectiva y agradable para todos.</p>
+                        
+                        <div class="principle">
+                            <h4>Reglas Básicas de Netiqueta</h4>
+                            <ul>
+                                <li>Trata a los demás como te gustaría ser tratado</li>
+                                <li>No escribas todo en mayúsculas (equivale a gritar)</li>
+                                <li>Respeta el tiempo y ancho de banda de los demás</li>
+                                <li>Comparte conocimiento experto de forma constructiva</li>
+                                <li>Perdona los errores de otros</li>
+                                <li>Respeta la privacidad de los demás</li>
+                                <li>No abuses de tu poder o conocimiento</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="reflection">
+                            <h4>Para reflexionar</h4>
+                            <p>¿Actúas de la misma manera en línea que lo harías en persona? La identidad digital debe ser coherente con la identidad real.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>3. Privacidad y Seguridad de la Información</h3>
+                        <p>Proteger tu información personal es fundamental en la era digital. Tu <span class="highlight">huella digital</span> es el rastro de información que dejas cada vez que usas internet.</p>
+                        
+                        <div class="principle">
+                            <h4>¿Qué información proteger?</h4>
+                            <ul>
+                                <li>Documentos de identificación personal</li>
+                                <li>Dirección y números de teléfono</li>
+                                <li>Información financiera y bancaria</li>
+                                <li>Contraseñas y datos de acceso</li>
+                                <li>Ubicación en tiempo real</li>
+                                <li>Información médica personal</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="case-study">
+                            <h4>Caso de estudio: Configuración de privacidad</h4>
+                            <p>María acaba de crear una cuenta en una red social. ¿Qué configuraciones de privacidad debería revisar y ajustar antes de comenzar a usar la plataforma?</p>
+                            <ul>
+                                <li>¿Quién puede ver sus publicaciones?</li>
+                                <li>¿Quién puede enviarle solicitudes de amistad?</li>
+                                <li>¿Está compartiendo su ubicación?</li>
+                                <li>¿Qué aplicaciones tienen acceso a su información?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>4. Ciberacoso y Comportamiento Ético</h3>
+                        <p>El <span class="highlight">ciberacoso</span> es el uso de medios digitales para molestar, acosar o intimidar a otra persona. Puede incluir mensajes ofensivos, difusión de rumores, suplantación de identidad o exclusión deliberada.</p>
+                        
+                        <div class="principle">
+                            <h4>¿Qué hacer ante el ciberacoso?</h4>
+                            <ul>
+                                <li>No responder a los ataques</li>
+                                <li>Guardar evidencia de los mensajes</li>
+                                <li>Bloquear a la persona acosadora</li>
+                                <li>Reportar el comportamiento a la plataforma</li>
+                                <li>Hablar con un adulto de confianza o autoridad</li>
+                                <li>Denunciar a las autoridades si es necesario</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="reflection">
+                            <h4>Pensamiento crítico</h4>
+                            <p>Antes de publicar un comentario sobre alguien, pregúntate: ¿Lo dirías en persona? ¿Te gustaría que alguien publicara eso sobre ti? ¿Podría herir a alguien?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>5. Alfabetización Digital y Pensamiento Crítico</h3>
+                        <p>La <span class="highlight">alfabetización digital</span> va más allá de saber usar la tecnología. Implica la capacidad de encontrar, evaluar, utilizar y crear información usando herramientas digitales.</p>
+                        
+                        <div class="principle">
+                            <h4>Evaluación de información en línea</h4>
+                            <ul>
+                                <li>Verifica la fuente de la información</li>
+                                <li>Busca evidencia que respalde las afirmaciones</li>
+                                <li>Consulta múltiples fuentes</li>
+                                <li>Considera el sesgo potencial del autor</li>
+                                <li>Revisa la fecha de publicación</li>
+                                <li>Desconfía de titulares sensacionalistas</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="case-study">
+                            <h4>Desafío: Noticias falsas</h4>
+                            <p>Encuentras una noticia impactante en redes sociales. ¿Qué pasos seguirías para verificar su veracidad antes de compartirla?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>6. Salud y Bienestar Digital</h3>
+                        <p>El uso saludable de la tecnología es esencial para el bienestar físico y mental. Esto incluye gestionar el tiempo de pantalla y mantener un equilibrio entre la vida digital y la real.</p>
+                        
+                        <div class="principle">
+                            <h4>Prácticas para un uso saludable</h4>
+                            <ul>
+                                <li>Establece límites de tiempo para el uso de dispositivos</li>
+                                <li>Realiza descansos regulares (regla 20-20-20)</li>
+                                <li>Prioriza las interacciones cara a cara</li>
+                                <li>Desconéctate durante las comidas y antes de dormir</li>
+                                <li>Practica actividades físicas regularmente</li>
+                                <li>Cultiva hobbies fuera de lo digital</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>7. Derechos y Responsabilidades Digitales</h3>
+                        <p>Como ciudadano digital, tienes derechos pero también responsabilidades. Es importante conocer ambos para participar plenamente en la sociedad digital.</p>
+                        
+                        <div class="principle">
+                            <h4>Derechos del ciudadano digital</h4>
+                            <ul>
+                                <li>Derecho al acceso digital</li>
+                                <li>Derecho a la libertad de expresión</li>
+                                <li>Derecho a la privacidad</li>
+                                <li>Derecho a la protección de datos personales</li>
+                                <li>Derecho a la educación digital</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="principle">
+                            <h4>Responsabilidades del ciudadano digital</h4>
+                            <ul>
+                                <li>Respetar los derechos de los demás</li>
+                                <li>Utilizar la tecnología de manera ética</li>
+                                <li>Proteger la información personal y la de otros</li>
+                                <li>Contribuir positivamente a la comunidad digital</li>
+                                <li>Reportar comportamientos inapropiados</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3>8. Compromiso Cívico Digital</h3>
+                        <p>La ciudadanía digital también implica participar activamente en la sociedad a través de medios digitales, desde votar en consultas en línea hasta participar en causas sociales.</p>
+                        
+                        <div class="reflection">
+                            <h4>Tu papel en la comunidad digital</h4>
+                            <p>¿Cómo puedes contribuir positivamente a tu comunidad digital? Considera compartir conocimiento útil, apoyar causas benéficas, crear contenido educativo o ayudar a otros a mejorar sus habilidades digitales.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="module-nav">
+                    <!-- CORREGIDO: Botón de regreso usando URL de Django -->
+                    <a href="{% url 'modulos' %}" class="btn">Regresar a Módulos</a>
+                    <button id="back-to-test" class="btn btn-secondary">Volver a la prueba</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Módulo de Ciudadanía Digital &copy; 2023 - Sistema de Gestión de Aprendizaje</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const diagnosticTest = document.getElementById('diagnostic-test');
+            const testResult = document.getElementById('test-result');
+            const moduleContent = document.getElementById('module-content');
+            const submitTestBtn = document.getElementById('submit-test');
+            const continueModuleBtn = document.getElementById('continue-module');
+            const retryTestBtn = document.getElementById('retry-test');
+            const backToTestBtn = document.getElementById('back-to-test');
+            const resultMessage = document.getElementById('result-message');
+            const progressBar = document.getElementById('progress');
+            const scoreText = document.getElementById('score-text');
+            
+            // Respuestas correctas
+            const correctAnswers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'b',
+                q4: 'a',
+                q5: 'b'
+            };
+            
+            // Calcular resultado de la prueba
+            submitTestBtn.addEventListener('click', function() {
+                let score = 0;
+                const totalQuestions = Object.keys(correctAnswers).length;
+                
+                // Verificar respuestas
+               for (const question in correctAnswers) {
+    const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+    if (selectedOption && selectedOption.value === correctAnswers[question]) {
+        score++;
+    }
+}
+
+// Mostrar resultado
+const percentage = (score / totalQuestions) * 100;
+progressBar.style.width = `${percentage}%`;
+scoreText.textContent = `Has obtenido ${score} de ${totalQuestions} respuestas correctas (${percentage}%)`;
+
+                
+                if (percentage >= 60) {
+                    resultMessage.innerHTML = '<h3>¡Felicidades!</h3><p>Has aprobado la prueba de diagnóstico. Puedes continuar con el módulo.</p>';
+                    resultMessage.className = 'result success';
+                } else {
+                    resultMessage.innerHTML = '<h3>Necesitas repasar</h3><p>Te recomendamos estudiar los conceptos básicos antes de continuar con el módulo.</p>';
+                    resultMessage.className = 'result error';
+                }
+                
+                diagnosticTest.classList.add('hidden');
+                testResult.classList.remove('hidden');
+            });
+            
+            // Continuar al módulo
+            continueModuleBtn.addEventListener('click', function() {
+                testResult.classList.add('hidden');
+                moduleContent.classList.remove('hidden');
+            });
+            
+            // Reintentar la prueba
+            retryTestBtn.addEventListener('click', function() {
+                // Limpiar formulario
+                document.getElementById('diagnostic-form').reset();
+                
+                testResult.classList.add('hidden');
+                diagnosticTest.classList.remove('hidden');
+            });
+            
+            // Volver a la prueba desde el módulo
+            backToTestBtn.addEventListener('click', function() {
+                moduleContent.classList.add('hidden');
+                diagnosticTest.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
