@@ -9,10 +9,6 @@ urlpatterns = [
     
     # SOLO UNA de estas líneas - ELIMINA LA OTRA
     path('accounts/', include('django.contrib.auth.urls')),
-    
-    # ELIMINA esta línea duplicada:
-    # path('cuentas/', include('django.contrib.auth.urls')),
-    
     path('accounts/profile/', views.perfil, name='profile'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('registro/', views.registro, name='registro'),
