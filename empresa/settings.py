@@ -59,7 +59,7 @@ ROOT_URLCONF = 'empresa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'usuarios' / 'templates'],  
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True, 
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '1234567',
+        'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '5432',
 
