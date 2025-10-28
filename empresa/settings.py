@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -59,7 +58,8 @@ ROOT_URLCONF = 'empresa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        # LA RUTA YA ESTÁ CORRECTA A LA CARPETA BASE/templates
+        'DIRS': [BASE_DIR / 'templates'], 
         'APP_DIRS': True, 
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        # IMPORTANTE: ASEGÚRATE DE QUE ESTA CONTRASEÑA ES SÓLO ASCII (LETRAS/NÚMEROS)
+        'PASSWORD': '12345', 
         'HOST': 'localhost',
         'PORT': '5432',
 
@@ -126,16 +127,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# CONFIGURACIÓN DE URLS DE AUTENTICACIÓN
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/perfil/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+SITE_URL = 'http://localhost:8000' # Usado para generar enlaces en el correo
+
+# CONFIGURACIÓN DE CORREO SMTP (Unificada y Correcta)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'tuapp@ejemplo.com'
-SITE_URL = 'http://localhost:8000'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = 'tu_correo_real@gmail.com' # ¡REEMPLAZA ESTE VALOR!
+EMAIL_HOST_PASSWORD = 'TU_CLAVE_DE_APLICACION' # ¡REEMPLAZA ESTE VALOR! (Clave de 16 dígitos)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER # El correo saldrá desde la dirección de EMAIL_HOST_USER
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/perfil/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
-
